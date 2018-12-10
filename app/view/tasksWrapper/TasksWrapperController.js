@@ -115,6 +115,7 @@ Ext.define('TestTask.view.tasksWrapper.TasksWrapperController', {
         isValid ? Ext.getStore('tasks').commitChanges() : this.showError(errors);
     },
     onFilterChange(input){
-        console.log(input.getValue())
+        const vm = this.lookupReference('tasksGrid').getViewModel();
+        vm.set('filter', input.getValue());
     },
 });

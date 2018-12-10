@@ -4,4 +4,16 @@ Ext.define('TestTask.view.tasksGrid.TasksGridModel', {
     requires: [
         'TestTask.store.Tasks',
     ],
+    data: {
+        filter: '',
+    },
+    stores: {
+        tasks: {
+            type: 'tasks',
+            filters: {
+                property: 'name',
+                value: '{filter}',
+            }
+        }
+    },
 });

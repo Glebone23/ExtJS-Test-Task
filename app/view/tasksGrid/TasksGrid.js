@@ -20,18 +20,19 @@ Ext.define('TestTask.view.tasksGrid.TasksGrid', {
         type: 'vbox',
         align: 'stretch'
     },
-    store: {
-        type: 'tasks'
-    },
+    // viewModel: {
+    //
+    // },
     bind: {
         selection: '{theRow}',
+        store: '{tasks}'
     },
     columnLines: true,
     selModel: {
         selType: 'checkboxmodel'
     },
     columns: [
-        { text: 'Id',  dataIndex: 'id' },
+        { text: 'Id', dataIndex: 'id' },
         { text: 'Name', dataIndex: 'name', flex: 1 },
         { text: 'Start date', dataIndex: 'startDate', flex: 1, renderer: Ext.util.Format.dateRenderer('d-m-Y H:i:s') },
         { text: 'End date', dataIndex: 'endDate', flex: 1, renderer: Ext.util.Format.dateRenderer('d-m-Y H:i:s') },

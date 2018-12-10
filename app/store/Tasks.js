@@ -10,5 +10,4 @@ Ext.define('TestTask.store.Tasks', {
         { name: 'Task 1', startDate: new Date(), endDate: tomorrow, status: 'Running' },
         { name: 'Task 2', startDate: new Date(), endDate: tomorrow, status: 'Stopped' },
     ],
-    remoteFilter: true,
 });

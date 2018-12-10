@@ -8,12 +8,9 @@ Ext.define('TestTask.view.tasksWrapper.TasksWrapper', {
         'TestTask.view.tasksWrapper.TasksWrapperController',
     ],
     viewModel: {
-        data: {
-            filter: '/Task 1/',
-        },
-    },
-    store: {
-        type: 'tasks'
+        // data: {
+        //     nameFilter: this.view,
+        // },
     },
     controller: 'taskswrapper',
     frame: true,
@@ -67,6 +64,7 @@ Ext.define('TestTask.view.tasksWrapper.TasksWrapper', {
                     text: 'category filter',
                     xtype: 'textfield',
                     width: '96.5%',
+                    // bind: '{nameFilter}',
                     listeners: {
                         change: 'onFilterChange',
                     },
