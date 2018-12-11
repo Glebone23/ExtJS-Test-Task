@@ -8,18 +8,12 @@ Ext.define('TestTask.view.tasksGrid.TasksGrid', {
     },
     width: '60%',
     height: 500,
-    scrollable: true,
     cls: 'tasks-list-grid',
     frame: true,
-    layout: {
-        type: 'vbox',
-        align: 'stretch'
-    },
     bind: {
         selection: '{theRow}',
         store: '{tasks}'
     },
-    columnLines: true,
     selModel: {
         selType: 'checkboxmodel'
     },
