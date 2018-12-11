@@ -19,9 +19,10 @@ Ext.define('TestTask.model.Task', {
         {name: 'name',   type: 'string', defaultValue: ''},
         {name: 'startDate', type: 'customDate', defaultValue: ''},
         {name: 'endDate', type: 'customDate', defaultValue: ''},
-        {name: 'status', type: 'string', defaultValue: 'Stopped'},
+        {name: 'status', type: 'string', defaultValue: processes.stopped},
     ],
     validators: {
         name: { type: 'length', min: 1, max: 255 },
+        status: { type: 'inclusion', list: [processes.stopped, processes.running] }
     },
 });
