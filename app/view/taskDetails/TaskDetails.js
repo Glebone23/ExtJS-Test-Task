@@ -2,27 +2,22 @@ Ext.define('TestTask.view.taskDetails.TaskDetails', {
     extend: 'Ext.tab.Panel',
     xtype: 'taskdetails',
     cls: 'task-details-panel',
-    requires: [
-        'TestTask.view.taskDetails.TaskDetailsController',
-    ],
     controller: 'taskDetails',
     frame: true,
     bodyPadding: 10,
     width: '39%',
     height: 500,
     hidden: true,
+    bind: {
+        hidden: '{hidden}',
+    },
     fieldDefaults: {
         labelAlign: 'right',
         labelWidth: 115,
         msgTarget: 'side'
     },
     viewModel: {
-        data: {
-            id: 0,
-            name: '',
-            startDate: '',
-            endDate: '',
-        }
+        type: 'taskdetails',
     },
     items: [
         {
@@ -41,6 +36,7 @@ Ext.define('TestTask.view.taskDetails.TaskDetails', {
                             xtype: 'displayfield',
                             fieldLabel: 'Id',
                             name: 'id',
+                            value: '',
                             bind: {
                                 value: '{id}',
                             },
@@ -52,6 +48,7 @@ Ext.define('TestTask.view.taskDetails.TaskDetails', {
                             allowBlank: false,
                             minLength: 1,
                             maxLength: 255,
+                            value: '',
                             bind: {
                                 value: '{name}',
                             },
@@ -66,6 +63,8 @@ Ext.define('TestTask.view.taskDetails.TaskDetails', {
                             name: 'startDate',
                             allowBlank: false,
                             format: 'd/m/Y H:i:s',
+                            id: 'startDate',
+                            value: '',
                             listeners: {
                                 change: 'onInputChange',
                             },
@@ -79,8 +78,15 @@ Ext.define('TestTask.view.taskDetails.TaskDetails', {
                             name: 'endDate',
                             allowBlank: false,
                             format: 'd/m/Y H:i:s',
-                            validator(){
-                                const minValue = this.previousNode('datefield').getValue();
+                            value: '',
+                            onTriggerClick() {
+                                // sorry for this solution, just when I used ViemModel for bind minValue - I've got some bugs
+                                const me = this;
+                                me.setMinValue(Ext.getCmp('startDate').value);
+                                Ext.form.DateField.prototype.onTriggerClick.apply(me, arguments);
+                            },
+                            validator() {
+                                const minValue = Ext.getCmp('startDate').getValue();
                                 if (minValue < this.getValue()) return true;
                                 return 'End Date should me more than Start Date';
                             },
@@ -88,7 +94,7 @@ Ext.define('TestTask.view.taskDetails.TaskDetails', {
                                 change: 'onInputChange',
                             },
                             bind: {
-                                minValue: '{startDate}',
+                                // minValue: '{minEndDate}',
                                 value: '{endDate}',
                             },
                         },

@@ -6,9 +6,9 @@ Ext.define('TestTask.view.taskDetails.TaskDetailsController', {
             value = input.getValue(),
             name = input.getName(),
             task = store.filter(task => task.getData().id === this.getViewModel().get('id'))[0],
-            taskData = task.getData(),
             setTask = (name, value) => task.set(name, value);
-        if (input.validate()) {
+        if (task && input.validate()) {
+            const taskData = task.getData();
             if (name === 'endDate' || name === 'startDate') {
                 const dateToSet = new Date(value);
                 if ((!taskData[name] && value) ||
@@ -16,18 +16,22 @@ Ext.define('TestTask.view.taskDetails.TaskDetailsController', {
                         taskData[name].toString() !== value.toString()) &&
                     dateToSet && dateToSet.toString() !== 'Invalid Date'
                 ) setTask(name, dateToSet);
-            } else setTask(name, value);
+            } else {
+                setTask(name, value);
+            }
         }
     },
     toggleTaskDetails(grid) {
-        const view = this.getView(), gridSelectionModel = grid.getSelectionModel();
+        const gridSelectionModel = grid.getSelectionModel(),
+            vm = this.getViewModel();
+        let hidden = true;
         if (gridSelectionModel.hasSelection()) {
             const rows = gridSelectionModel.getSelection(), row = rows[0].getData();
             if (rows.length === 1) {
-                const vm = this.getViewModel();
                 ['id', 'name', 'startDate', 'endDate'].forEach(field => vm.set(field, row[field]));
-                view.setHidden(false);
-            } else view.setHidden(true);
-        } else view.setHidden(true);
+                hidden = false;
+            }
+        }
+        vm.set('hidden', hidden);
     },
 });

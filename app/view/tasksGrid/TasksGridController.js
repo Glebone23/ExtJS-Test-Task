@@ -1,6 +1,9 @@
 Ext.define('TestTask.view.tasksGrid.TasksGridController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.tasksgrid',
+    store: {
+        type: 'tasks',
+    },
     onSelectChange() {
         const tasksWrapper = Ext.ComponentQuery.query('taskswrapper')[0];
         tasksWrapper.getController().updateToolbarButtonsState();
@@ -12,8 +15,9 @@ Ext.define('TestTask.view.tasksGrid.TasksGridController', {
         details.getController().toggleTaskDetails(grid);
     },
     init() {
+        // commit store on init because "rejectChanges" removing any data from store
         setTimeout(() => {
-            this.getViewModel().getStore('tasks').commitChanges();
-        }, 100) // fix onCancelButtonClick
+            this.getStore('tasks').commitChanges();
+        }, 150)
     },
 });

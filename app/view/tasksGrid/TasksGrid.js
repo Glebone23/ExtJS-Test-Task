@@ -2,11 +2,6 @@ Ext.define('TestTask.view.tasksGrid.TasksGrid', {
     extend: 'Ext.grid.Panel',
     xtype: 'tasksgrid',
     reference: 'tasksGrid',
-    requires: [
-        'TestTask.store.Tasks',
-        'TestTask.view.tasksGrid.TasksGridController',
-        'TestTask.view.tasksGrid.TasksGridModel',
-    ],
     controller: 'tasksgrid',
     viewModel: {
         type: 'tasksgrid',
@@ -20,9 +15,6 @@ Ext.define('TestTask.view.tasksGrid.TasksGrid', {
         type: 'vbox',
         align: 'stretch'
     },
-    // viewModel: {
-    //
-    // },
     bind: {
         selection: '{theRow}',
         store: '{tasks}'

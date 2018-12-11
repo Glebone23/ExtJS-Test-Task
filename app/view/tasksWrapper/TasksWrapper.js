@@ -1,16 +1,8 @@
 Ext.define('TestTask.view.tasksWrapper.TasksWrapper', {
     extend: 'Ext.panel.Panel',
     xtype: 'taskswrapper',
-    requires: [
-        'TestTask.store.Tasks',
-        'TestTask.view.tasksGrid.TasksGrid',
-        'TestTask.view.taskDetails.TaskDetails',
-        'TestTask.view.tasksWrapper.TasksWrapperController',
-    ],
     viewModel: {
-        // data: {
-        //     nameFilter: this.view,
-        // },
+        type: 'tasksWrapper',
     },
     controller: 'taskswrapper',
     frame: true,
@@ -43,6 +35,9 @@ Ext.define('TestTask.view.tasksWrapper.TasksWrapper', {
                     id: 'btnRun',
                     disabled: true,
                     handler: 'onRunClick',
+                    bind: {
+                        disabled: '{canRun}',
+                    }
                 },
                 {
                     text: 'Stop',
@@ -51,6 +46,9 @@ Ext.define('TestTask.view.tasksWrapper.TasksWrapper', {
                     id: 'btnStop',
                     disabled: true,
                     handler: 'onStopClick',
+                    bind: {
+                        disabled: '{canStop}',
+                    }
                 }
             ]
         },
@@ -63,8 +61,7 @@ Ext.define('TestTask.view.tasksWrapper.TasksWrapper', {
                     emptyText:'Enter filter text...',
                     text: 'category filter',
                     xtype: 'textfield',
-                    width: '96.5%',
-                    // bind: '{nameFilter}',
+                    width: 250,
                     listeners: {
                         change: 'onFilterChange',
                     },
@@ -72,20 +69,18 @@ Ext.define('TestTask.view.tasksWrapper.TasksWrapper', {
             ]
         }
     ],
-    fbar : {
+    fbar: {
         items : [
             {
                 text : 'Submit',
                 listeners: {
-                    click: 'onSubmitClick',
+                    click: 'commitChanges',
                 }
             },
             {
                 text : 'Cancel',
                 listeners: {
-                    click() {
-                        Ext.getStore('tasks').rejectChanges();
-                    }
+                    click: 'rejectChanges'
                 }
             }
         ],
